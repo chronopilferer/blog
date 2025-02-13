@@ -1,0 +1,7 @@
+/node_modules
+/dist
+.env
+/build
+.next
+file_structure.py
+.env.production

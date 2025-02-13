@@ -1,0 +1,54 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+  text-align: center;
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.icon {
+  font-size: 6rem;
+  color: #555;
+  animation: spin 3s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.message {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 1rem 0;
+  animation: fade-in 2s ease-in-out;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.background-icon {
+  position: absolute;
+  font-size: 20rem;
+  color: rgba(255, 152, 0, 0.1);
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: -1;
+}
