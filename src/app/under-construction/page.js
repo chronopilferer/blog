@@ -9,9 +9,9 @@ import styles from "./UnderConstruction.module.css";
 export default function UnderConstruction() {
   return (
     <Box className={styles.container}>
-      <SettingsIcon className={styles["background-icon"]} />
+      <SettingsIcon className={styles["background-icon"]} sx={{ fontSize: "20rem !important" }} />
 
-      <SettingsIcon className={styles.icon} fontSize="inherit" />
+      <SettingsIcon className={styles.icon} fontSize="6rem" />
 
       <Typography variant="h3" sx={{ mb: 2, color: "#333" }}>
         🚧 페이지가 제작 중입니다 🚧

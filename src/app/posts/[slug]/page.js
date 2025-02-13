@@ -4,40 +4,28 @@ import styles from '@styles/PostPage.module.css';
 import PostSidebar from '@components/ui/sidebar/PostSidebar';
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs();
-  return slugs.map((slug) => ({ slug }));
+  return getPostSlugs().map((slug) => ({ slug }));
 }
 
 export default async function PostPage({ params }) {
   const { slug } = await params;  
   const post = await getPostData(slug);  
 
-
   const contentList = [];
-  let contentWithIds = post.contentHtml.replace(/<h1([^>]*)>(.*?)<\/h1>/g, (match, attrs, title, index) => {
-    let idMatch = attrs.match(/id="([^"]+)"/) || attrs.match(/id=([^ >]+)/);
-    let id = idMatch ? idMatch[1] : `section-${index + 1}`;
+  const contentWithIds = post.contentHtml.replace(/<h1([^>]*)>(.*?)<\/h1>/g, (match, attrs, title) => {
+    let id = attrs.match(/id="([^"]+)"/)?.[1] || `section-${contentList.length + 1}`;
 
-    contentList.push({
-      id,
-      title: title.trim(),
-    });
-
-    if (!idMatch) {
-      return `<h1 ${attrs} id="${id}">${title}</h1>`;
-    }
-    return match;
+    contentList.push({ id, title: title.trim() });
+    return `<h1 ${attrs.includes('id=') ? attrs : `${attrs} id="${id}"`}>${title}</h1>`;
   });
 
   return (
     <div className={styles.postContainer}>
-      <PostHeader title={post.title} date={post.date} category={post.category} tags={post.tags} summary={post.summary} />
+      <PostHeader {...post} />
       <div className={styles.postContent}>
         <div className={styles.sidebarLeft}></div>
         <div className={styles.mainContent}>
-
           <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
-
         </div>
         <div className={styles.sidebarRight}>
           <PostSidebar content={contentList} />

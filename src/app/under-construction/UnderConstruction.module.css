@@ -45,7 +45,7 @@
 
 .background-icon {
   position: absolute;
-  font-size: 20rem;
+  font-size: 20rem !important;
   color: rgba(255, 152, 0, 0.1);
   top: 10%;
   left: 50%;

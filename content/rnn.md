@@ -125,10 +125,10 @@ $$
 #### 주요 용어
 - $ T $: 전체 Timestep  
 - $ y_t $: 예측값  
-- $ \\hat{y}_t $: 실제값  
+- $ \hat{y}_t $: 실제값  
 - $ L $: 전체 시점 $ T $ 에 대한 손실  
 - $ l $: 시점 $ t $ 에 대한 손실  
-- $ \\eta $: 학습률 
+- $ \eta $: 학습률 
 
 ### RNN의 학습 과정은 아래의 세 가지 주요 단계로 이루어진다.
 
@@ -148,11 +148,11 @@ $$
 
 - **손실 계산**  
     $$ 
-    L = \\sum_{t=1}^T l(y_t, \\hat{y}_t)
+    L = \sum_{t=1}^T l(y_t, \hat{y}_t)
     $$  
     - 예를 들어, 교차 엔트로피 손실 함수는 다음과 같다:  
     $$ 
-    l(y_t, \\hat{y}_t) = -\\hat{y}_t \\log(y_t)
+    l(y_t, \hat{y}_t) = -\hat{y}_t \log(y_t)
     $$  
 
 ## 2. Backpropagation Through Time (BPTT, 역전파)

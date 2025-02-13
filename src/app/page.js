@@ -12,15 +12,13 @@ export default function RootPage() {
   const categorizedPosts = categorizePosts(posts);
 
   return (
-    <>
-      <Box className={styles["main-container"]}>
-        <Box className={styles["root-page-container"]}>
-          <Header />
-          {Object.entries(categorizedPosts).map(([category, posts]) => (
-            <CategorySection key={category} category={category} posts={posts} />
-          ))}
-        </Box>
+    <Box className={styles["main-container"]}>
+      <Box className={styles["root-page-container"]}>
+        <Header />
+        {Object.entries(categorizedPosts).map(([category, posts]) => (
+          <CategorySection key={category} category={category} posts={posts} />
+        ))}
       </Box>
-    </>
+    </Box>
   );
 }
