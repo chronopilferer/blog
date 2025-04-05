@@ -4,7 +4,12 @@ import styles from '@styles/PostPage.module.css';
 import PostSidebar from '@components/ui/sidebar/PostSidebar';
 
 export async function generateStaticParams() {
-  return getPostSlugs().map((slug) => ({ slug }));
+  try {
+    const slugs = getPostSlugs();
+    return slugs.map((slug) => ({ slug }));
+  } catch (e) {
+    return []; 
+  }
 }
 
 export default async function PostPage({ params }) {

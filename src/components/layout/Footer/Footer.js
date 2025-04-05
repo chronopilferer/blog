@@ -5,7 +5,7 @@ import { Box, Container, Divider, Stack } from "@mui/material";
 import IconLinkButton from "@components/ui/buttons/IconLinkButton";
 import Copyright from "@components/layout/Footer/Copyright";
 import styles from "./Footer.module.css";
-import socialLinks from "@data/socialLinks";
+import socialLinks from "@config/socialLinks";
 
 export default function Footer() {
   return (

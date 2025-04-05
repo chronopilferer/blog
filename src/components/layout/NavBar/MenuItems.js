@@ -2,7 +2,7 @@
 
 import React from "react";
 import UnderlineButton from "@components/ui/buttons/UnderlineButton";
-import menuItems from "@data/menuItems";
+import menuItems from "@config/menuItems";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 export default function MenuItems() {

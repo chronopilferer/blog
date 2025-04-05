@@ -5,14 +5,16 @@ import { remark } from 'remark';
 import html from 'remark-html';
 import remarkGfm from 'remark-gfm';
 import remarkMath from 'remark-math';
-import rehypeMathjax from 'rehype-mathjax';  
-import rehypeStringify from 'rehype-stringify';  
+import rehypeMathjax from 'rehype-mathjax';
+import rehypeStringify from 'rehype-stringify';
 import remarkRehype from 'remark-rehype';
-import rehypeRaw from 'rehype-raw';  
+import rehypeRaw from 'rehype-raw';
 
 const postsDir = path.join(process.cwd(), 'content');
 
 function getMarkdownFiles(dir) {
+  if (!fs.existsSync(dir)) return [];
+
   return fs.readdirSync(dir).flatMap((file) => {
     const fullPath = path.join(dir, file);
     const stat = fs.statSync(fullPath);
@@ -30,8 +32,8 @@ function getMarkdownFiles(dir) {
 function generateSlug(filePath) {
   const slug = path
     .relative(postsDir, filePath)
-    .replace(/\\/g, '/')        
-    .replace(/ /g, '-')        
+    .replace(/\\/g, '/')         
+    .replace(/ /g, '-')          
     .replace(/[^a-zA-Z0-9-_./]/g, '') 
     .replace(/\.md$/, '');
   return slug;
@@ -42,49 +44,76 @@ export function getPostSlugs() {
   return markdownFiles.map(generateSlug);
 }
 
+function getFullPathFromSlug(slug) {
+  return path.join(postsDir, `${slug.replace(/\//g, path.sep)}.md`);
+}
+
 export function getPostBySlug(slug) {
-  const fullPath = path.join(postsDir, `${slug.replace(/\//g, path.sep)}.md`);
+  const fullPath = getFullPathFromSlug(slug);
 
-  if (!fs.existsSync(fullPath)) {
-    throw new Error(`❌ Markdown file not found: ${fullPath}`);
+  try {
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`⚠️ Markdown file not found: ${fullPath}`);
+      return null;
+    }
+
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
+    const htmlContent = remark().use(html).processSync(content).toString();
+
+    return {
+      slug,
+      frontMatter: data,
+      contentHtml: htmlContent,
+    };
+  } catch (error) {
+    console.error(`Error processing file ${fullPath}:`, error);
+    return null;
   }
-
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
-  const { data, content } = matter(fileContents);
-  const htmlContent = remark().use(html).processSync(content).toString();
-
-  return {
-    slug,
-    frontMatter: data,
-    contentHtml: htmlContent,
-  };
 }
 
 export function getAllPosts() {
-  const posts = getPostSlugs().map(getPostBySlug);
-  return posts;
+  const slugs = getPostSlugs();
+  return slugs
+    .map(getPostBySlug)
+    .filter((post) => post !== null);
 }
-
-
 
 export async function getPostData(slug) {
-  const fullPath = path.join(postsDir, `${slug}.md`);
-  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const fullPath = getFullPathFromSlug(slug);
 
-  const { data, content } = matter(fileContents);
+  try {
+    if (!fs.existsSync(fullPath)) {
+      console.warn(`⚠️ Markdown file not found: ${fullPath}`);
+      return {
+        title: 'Not Found',
+        date: '',
+        contentHtml: '<p>This post could not be found.</p>',
+      };
+    }
 
-  const processedContent = await remark()
-    .use(remarkGfm)                                 
-    .use(remarkMath)                                
-    .use(remarkRehype, { allowDangerousHtml: true }) 
-    .use(rehypeRaw)                                 
-    .use(rehypeMathjax)                             
-    .use(rehypeStringify)                           
-    .process(content);
+    const fileContents = fs.readFileSync(fullPath, 'utf8');
+    const { data, content } = matter(fileContents);
 
-  return {
-    ...data,                
-    contentHtml: processedContent.toString(), 
-  };
+    const processedContent = await remark()
+      .use(remarkGfm)
+      .use(remarkMath)
+      .use(remarkRehype, { allowDangerousHtml: true })
+      .use(rehypeRaw)
+      .use(rehypeMathjax)
+      .use(rehypeStringify)
+      .process(content);
+
+    return {
+      ...data,
+      contentHtml: processedContent.toString(),
+    };
+  } catch (error) {
+    console.error(`Error processing markdown for slug ${slug}:`, error);
+    return {
+      title: 'Error',
+      date: '',
+      contentHtml: `<p>Error processing the post: ${error.message}</p>`,
+    };
+  }
 }
-

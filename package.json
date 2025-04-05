@@ -2,9 +2,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "predeploy": "echo '' > dist/.nojekyll",
-    "deploy": "npm run build && gh-pages -d dist"
+    "start": "next start"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
