@@ -1,0 +1,7 @@
+.main-content {
+  padding-top: 56px; 
+  padding-bottom: 32px; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

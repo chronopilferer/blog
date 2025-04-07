@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import { getAllPosts } from "@lib/utils/markdown";
-import { categorizePosts } from "@lib/utils/categorizePosts";
+import { getAllPosts } from "@utils/markdown";
+import { categorizePosts } from "@utils/categorizePosts";
 import CategorySection from "@components/common/CategorySection";
 import Header from "@components/layout/Header/Home/Header";
-import styles from "@styles/RootPage.module.css";
+import styles from "@styles/HomePage.module.css";
 
 export const dynamic = "auto";
 

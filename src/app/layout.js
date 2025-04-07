@@ -1,7 +1,7 @@
 import NavBar from "@components/layout/NavBar/NavBar";
 import Footer from "@components/layout/Footer/Footer";
 import "@styles/global.css";
-import styles from "@styles/RootLayout.module.css";
+import styles from "./HomeLayout.module.css";
 import 'katex/dist/katex.min.css';  
 
 export const metadata = {

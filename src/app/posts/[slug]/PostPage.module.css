@@ -1,0 +1,127 @@
+.postContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 40px 20px;
+  max-width: 95%;
+  font-family: 'Pretendard', sans-serif;
+  color: #1a1a1a;
+  background-color: #fafafa;
+}
+
+.postContent {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sidebarLeft,
+.sidebarRight {
+  flex: 1;
+}
+
+.mainContent {
+  flex: 4;
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease;
+}
+
+.mainContent:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 768px) {
+  .postContent {
+    flex-direction: column;
+  }
+
+  .sidebarLeft,
+  .sidebarRight {
+    display: none;
+  }
+
+  .mainContent {
+    width: 100%;
+    padding: 24px;
+  }
+}
+
+.mainContent h1,
+.mainContent h2,
+.mainContent h3 {
+  color: #222;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+}
+
+.mainContent h1 {
+  font-size: 2.2rem;
+}
+
+.mainContent h2 {
+  font-size: 1.6rem;
+}
+
+.mainContent h3 {
+  font-size: 1.3rem;
+}
+
+.mainContent p {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+.mainContent ul,
+.mainContent ol {
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.mainContent li {
+  margin-bottom: 10px;
+}
+
+.mainContent img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 30px 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.mainContent img:hover {
+  transform: scale(1.02);
+}
+
+.mainContent figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px auto;
+  text-align: center;
+  max-width: 100%;
+}
+
+.mainContent figure img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.mainContent figure img:hover {
+  transform: scale(1.02);
+}
+
+.mainContent figcaption {
+  font-size: 0.95rem;
+  color: #666;
+  margin-top: 10px;
+}

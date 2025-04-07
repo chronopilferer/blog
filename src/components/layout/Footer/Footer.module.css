@@ -1,20 +1,24 @@
 .footer {
-  padding: 1rem 0;              
-  background-color: #1f1f1f;     
-  color: #ffffff;               
+  padding: 1rem 0;
+  background-color: var(--color-background-dark);
+  color: var(--color-text-light);
   text-align: center;
-  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .footer a {
-  color: #ffffff;
+  color: var(--color-text-light);
   text-decoration: none;
 }
 
+.footer a:hover {
+  text-decoration: underline;
+}
+
 .copyright {
-  color: #cccccc;               
-  font-size: 0.9rem;            
-  letter-spacing: 0.5px;        
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {

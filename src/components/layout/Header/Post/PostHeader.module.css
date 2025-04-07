@@ -1,65 +1,80 @@
 .header {
-  background-color: #eaf0f9;       
-  /* padding: 40px 30px;                  */
-  border-radius: 16px;                
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); 
-  margin-bottom: 30px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #f5f7fa;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-large);
   text-align: center;
-  transition: all 0.3s ease;          
+  transition: all 0.3s ease;
 }
 
 .title {
   font-size: 2.8rem;
-  font-weight: bold;
-  color: #1a1a40;                     
-  margin-bottom: 16px;
+  font-weight: 800;
+  color: var(--color-text-dark);
+  margin-bottom: 1.2rem;
 }
 
-.image {
-  max-width: 80%;                     
-  height: auto;
-  margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.date, .category, .summary, .tags {
-  margin: 8px 0;
-  font-size: 1.1rem;
-  color: #555;
+.date {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
 }
 
 .category {
-  font-weight: 600;                   
-  color: #2c3e50;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.summary {
+  font-size: 1.1rem;
+  color: #444;
+  margin: 1.5rem 0;
+  line-height: 1.6;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .tags {
-  background-color: #d8e3f0;          
-  padding: 8px 12px;
-  border-radius: 12px;
-  display: inline-block;
-  margin-top: 12px;
-  font-size: 0.9rem;
-  color: #333;
-  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 
+.tags strong {
+  display: none;
+}
+
+.tags span {
+  background-color: #d8e3f0;
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  border-radius: 999px;
+  box-shadow: var(--shadow-small);
+}
+
+/* Responsive */
 @media (max-width: 768px) {
   .header {
-    padding: 30px 20px;
+    padding: 2rem 1.5rem;
   }
 
   .title {
     font-size: 2rem;
   }
 
-  .date, .category, .summary, .tags {
-    font-size: 0.9rem;
+  .summary {
+    font-size: 1rem;
+  }
+
+  .tags span {
+    font-size: 0.85rem;
   }
 }

@@ -4,8 +4,8 @@ import React from "react";
 import { Box, Container, Divider, Stack } from "@mui/material";
 import IconLinkButton from "@components/ui/buttons/IconLinkButton";
 import Copyright from "@components/layout/Footer/Copyright";
-import styles from "./Footer.module.css";
 import socialLinks from "@config/socialLinks";
+import styles from "./Footer.module.css";
 
 export default function Footer() {
   return (

@@ -1,21 +1,33 @@
 "use client";
 
 import Link from 'next/link';
+import React from 'react';
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
+import styles from './PostCard.module.css';
 
 export default function PostCard({ image = '/default-image.jpg', title, summary, date, slug }) {
-
   return (
-    <Link href={`/posts/${slug}`} passHref>
-      <Card sx={{ cursor: 'pointer' }}>
+    <Link href={`/posts/${slug}`} className={styles.card}>
+      <Card
+        sx={{
+          cursor: 'pointer',
+          height: 400,
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <CardMedia
           component="img"
-          height="auto"
           image={image}
           alt={title}
-          sx={{ maxHeight: 300, objectFit: 'cover' }}
+          sx={{
+            height: 240,
+            width: '100%',
+            objectFit: 'contain',
+            backgroundColor: '#f0f0f0',
+          }}
         />
-        <CardContent>
+        <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h6" component="div">
             {title || 'No title available'}
           </Typography>

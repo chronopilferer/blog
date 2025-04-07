@@ -1,11 +1,11 @@
 "use client";
 
-import PostCard from "@components/ui/cards/PostCard";
+import PostCard from "@components/ui/cards/post/PostCard";
 import { Typography, Box } from "@mui/material";
-import styles from "@styles/RootPage.module.css";
+import styles from "@styles/HomePage.module.css";
 
 export default function CategorySection({ category, posts }) {
-  const backgroundColor = "#f5f5f5";
+  const backgroundColor = "#f5f2f2";
 
   return (
     <Box

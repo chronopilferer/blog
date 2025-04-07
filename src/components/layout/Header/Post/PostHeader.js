@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import styles from './PostHeader.module.css';
 
 export default function PostHeader({ title, date, category, tags, summary }) {
@@ -11,11 +12,12 @@ export default function PostHeader({ title, date, category, tags, summary }) {
       <p className={styles.summary}><strong>요약:</strong> {summary}</p>
 
       {tags && tags.length > 0 && (
-        <p className={styles.tags}>
-          <strong>태그:</strong> {tags.join(', ')}
-        </p>
+        <div className={styles.tags}>
+          {tags.map((tag, idx) => (
+            <span key={idx}>{tag}</span>
+          ))}
+        </div>
       )}
-
     </header>
   );
 }

@@ -1,7 +1,7 @@
-import { getPostData, getPostSlugs } from '@lib/utils/markdown';
+import { getPostData, getPostSlugs } from '@utils/markdown';
 import PostHeader from '@components/layout/Header/Post/PostHeader';
-import styles from '@styles/PostPage.module.css';
-import PostSidebar from '@components/ui/sidebar/PostSidebar';
+import styles from './PostPage.module.css';
+import PostSidebar from './PostSidebar';
 
 export async function generateStaticParams() {
   try {

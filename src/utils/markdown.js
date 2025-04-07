@@ -95,6 +95,8 @@ export async function getPostData(slug) {
     const fileContents = fs.readFileSync(fullPath, 'utf8');
     const { data, content } = matter(fileContents);
 
+    const modifiedContent = content.replace(/(\*\*.*?\*\*)(\S)/g, '$1&#8203;$2');
+
     const processedContent = await remark()
       .use(remarkGfm)
       .use(remarkMath)
@@ -102,9 +104,10 @@ export async function getPostData(slug) {
       .use(rehypeRaw)
       .use(rehypeMathjax)
       .use(rehypeStringify)
-      .process(content);
+      .process(modifiedContent);
 
     return {
+      slug,
       ...data,
       contentHtml: processedContent.toString(),
     };

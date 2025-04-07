@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Box } from '@mui/material';
-import styles from '@components/layout/Header/Home/Header.module.css';
+import styles from './HomeHeader.module.css';
 import MainTitle from './MainTitle';
 import SubtitleS from './Subtitles';
 import SubtitleBlog from './SubtitleBlog';
@@ -12,7 +12,7 @@ import CelestialBody from './CelestialBody';
 const Header = ({ isScrolled }) => {
   return (
     <motion.header
-      className={styles.headerContainer}
+      className={styles.HomeHeaderContainer}
       initial={{ backgroundColor: '#000', color: '#fff' }}
       animate={{
         backgroundColor: isScrolled ? '#fff' : '#000',
@@ -20,9 +20,9 @@ const Header = ({ isScrolled }) => {
       }}
       transition={{ duration: 0.8 }}
     >
-      <Box className={styles.headerBox}>
+      <Box className={styles.HomeHeaderBox}>
         <CelestialBody isScrolled={isScrolled} />
-        <motion.h1 className={styles.headerTitle}>
+        <motion.h1 className={styles.HomeHeaderTitle}>
           <MainTitle />
           <SubtitleS />
           <SubtitleBlog />

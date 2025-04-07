@@ -1,5 +1,5 @@
 ---
-title: "RNN 설명"
+title: "RNN이란? : 순환 신경망의 구조와 학습 원리"
 date: "2023-02-03"
 category: "study"
 tags: ["AI", "DL"]     

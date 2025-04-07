@@ -1,0 +1,52 @@
+.HomeHeaderContainer {
+  overflow: hidden;
+  padding: 10px 0;
+}
+
+.HomeHeaderBox {
+  padding: 20px;
+  text-align: center;
+  min-height: 200px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.celestialBody {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 20px 0;
+}
+
+.HomeHeaderTitle {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.2;
+  color: var(--color-text-light);
+}
+
+.letterMain {
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.letterSubtitle {
+  display: inline-block;
+  margin: 0 2px;
+  font-style: italic;
+  color: #D3D3D3;
+}
+
+@media (max-width: 768px) {
+  .headerTitle {
+    font-size: 2rem;
+  }
+
+  .celestialBody {
+    width: 80px;
+    height: 80px;
+  }
+}

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import styles from './Header.module.css';
+import styles from './HomeHeader.module.css';
 
 const CelestialBody = ({ isScrolled }) => {
   return (

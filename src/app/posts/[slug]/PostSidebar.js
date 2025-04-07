@@ -50,7 +50,7 @@ const PostSidebar = ({ content }) => {
     container: {
       position: 'fixed',
       top: '60%',
-      right: '20px',
+      right: '3%',
       transform: 'translateY(-50%)',
       zIndex: theme.zIndex.drawer + 1,
       width: '200px',
