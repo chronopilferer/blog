@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import { Box, List, Stack, useTheme } from '@mui/material';
 import UnderlineButton from '@components/ui/buttons/UnderlineButton';
 
@@ -50,7 +49,7 @@ const PostSidebar = ({ content }) => {
     container: {
       position: 'fixed',
       top: '60%',
-      right: '3%',
+      right: '4%',
       transform: 'translateY(-50%)',
       zIndex: theme.zIndex.drawer + 1,
       width: '200px',

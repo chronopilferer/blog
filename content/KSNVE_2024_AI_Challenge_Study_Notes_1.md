@@ -1,7 +1,7 @@
 ---
 title: "KSNVE 2024 AI Challenge (1)"
 date: "2024-06-09"
-category: "study"
+category: "Study"
 tags: ["KSNVE2024", "VibrationData", "ML", "DL"]     
 summary: "지난 KSNVE AI Challenge에서 사용된 진동 데이터의 구조와 수집 방법을 공부한 내용을 정리해 보았습니다."
 image: "images/KSNVE_logo.png"
@@ -234,7 +234,7 @@ $$
 
 이번 실험으로 수집된 데이터셋은 다음과 같은 특성을 갖는다:
 
-- **결함 유형**: 정상 / 내륜 / 외륜 / 구슬  
+- **결함 유형**: 정상 / 내륜 / 외륜 / 구체  
 - **회전 속도 조건**: 680 ~ 2460 RPM (무작위 설정)  
 - **센서 방향**: x축, y축 진동 데이터 포함  
 - **신호 환경**: Weibull 노이즈 및 ToyADMOS 환경 소음이 포함된 신호

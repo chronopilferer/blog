@@ -1,7 +1,6 @@
 "use client";
 
 import Link from 'next/link';
-import React from 'react';
 import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import styles from './PostCard.module.css';
 

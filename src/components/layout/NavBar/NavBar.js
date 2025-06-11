@@ -24,7 +24,9 @@ const NavBar = React.memo(function NavBar() {
       position="fixed"
       sx={{
         backgroundColor: isScrolled ? "rgba(51, 51, 51, 0.8)" : "#333",
-        transition: "background-color 0.3s ease",
+        backdropFilter: "blur(8px)",
+        boxShadow: isScrolled ? "0 4px 12px rgba(0, 0, 0, 0.2)" : "none",
+        transition: "all 0.3s ease",
       }}
     >
       <Toolbar

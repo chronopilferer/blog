@@ -60,7 +60,6 @@
   box-shadow: var(--shadow-small);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .header {
     padding: 2rem 1.5rem;

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import Link from "next/link";
 import SettingsIcon from "@mui/icons-material/Settings";

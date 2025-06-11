@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Box, Container, Divider, Stack } from "@mui/material";
 import IconLinkButton from "@components/ui/buttons/IconLinkButton";
 import Copyright from "@components/layout/Footer/Copyright";

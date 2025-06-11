@@ -1,6 +1,5 @@
 "use client";
 
-import React from 'react';
 import styles from './PostHeader.module.css';
 
 export default function PostHeader({ title, date, category, tags, summary }) {

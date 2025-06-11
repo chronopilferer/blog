@@ -1,7 +1,7 @@
 ---
 title: "RNN이란? : 순환 신경망의 구조와 학습 원리"
 date: "2023-02-03"
-category: "study"
+category: "Study"
 tags: ["AI", "DL"]     
 summary: "RNN 이란 무엇일까?"
 image: "images/rnn_structure.png"
@@ -11,7 +11,7 @@ image: "images/rnn_structure.png"
 
 <figure style="text-align: center;">
     <img src="images/ff_network.png" alt="RNN 구조" style="width: 60%; height: auto;">
-    <figcaption>Feed forward & RNN network</figcaption>
+    <figcaption>그림 1. Feed forward & RNN network</figcaption>
 </figure>
 
 - RNN은 순환 구조를 가진 DNN의 한 종류로 순차 데이터(시계열, 문장, 음성 등)를 처리, 분석할 수 있게 설계된 모델이다.  
@@ -60,7 +60,7 @@ $$
 위 수식을 통해 이전 정보를 기억하며 은닉 상태를 업데이트하며 최종 출력을 내보낼 수 있다.
 
 <div style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; font-weight: 500;">
-<strong>결국 RNN을 학습시킨다는 것은 전체 timestep에서 고정되어 있는 가중치 행렬들과 편향들을 조정하며 손실이 가장 적은 가중치 행렬을 도출하는 것이다.</strong>
+  <strong>결국 RNN을 학습시킨다는 것은 전체 timestep에서 고정되어 있는 가중치 행렬들과 편향들을 조정하며 손실이 가장 적은 가중치 행렬을 도출하는 것이다.</strong>
 </div>
 
 --- 
@@ -69,7 +69,7 @@ $$
 
 <figure style="text-align: center;">
     <img src="images/rnn_structure.png" alt="RNN 구조" style="width: 100%; height: auto;">
-    <figcaption>RNN structure</figcaption>
+    <figcaption>그림 2. RNN structure</figcaption>
 </figure>
 
 ## 은닉 상태  
@@ -113,7 +113,7 @@ y_t = g(W_y h_t + b_y)
 $$
 
 <div style="background-color: #f5f5f5; padding: 10px; border-radius: 5px; font-weight: 500;">
-<strong>이전 은닉층의 정보가 다음 은닉층의 정보에 업데이트되면서 결국 최종 출력에 반영된다는 것을 확인할 수 있다.</strong>
+  <strong>이전 은닉층의 정보가 다음 은닉층의 정보에 업데이트되면서 결국 최종 출력에 반영된다는 것을 확인할 수 있다.</strong>
 </div>
 
 ---
