@@ -17,7 +17,7 @@ export default function PostCard({ image = '/default-image.jpg', title, summary,
       >
         <CardMedia
           component="img"
-          image={image}
+          image={image.startsWith('/') ? image : `/${image}`}  
           alt={title}
           sx={{
             height: 240,

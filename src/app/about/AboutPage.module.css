@@ -1,9 +1,6 @@
 .fullPageContainer {
   height: 100vh;
   overflow: hidden; 
-  position: relative;
-  display: flex;
-  flex-direction: column;
 }
 
 .no-scrollbar::-webkit-scrollbar {

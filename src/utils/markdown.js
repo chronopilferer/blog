@@ -1,18 +1,15 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import html from 'remark-html';
-import remarkGfm from 'remark-gfm';
+import { bundleMDX } from 'mdx-bundler';
+
 import remarkMath from 'remark-math';
-import rehypeMathjax from 'rehype-mathjax';
-import rehypeStringify from 'rehype-stringify';
-import remarkRehype from 'remark-rehype';
-import rehypeRaw from 'rehype-raw';
+import rehypeKatex from 'rehype-katex';
+import rehypeHighlight from 'rehype-highlight';
 
 const postsDir = path.join(process.cwd(), 'content');
 
-function getMarkdownFiles(dir) {
+function getMdxFiles(dir) {
   if (!fs.existsSync(dir)) return [];
 
   return fs.readdirSync(dir).flatMap((file) => {
@@ -20,103 +17,75 @@ function getMarkdownFiles(dir) {
     const stat = fs.statSync(fullPath);
 
     if (stat.isDirectory()) {
-      return getMarkdownFiles(fullPath);
+      return getMdxFiles(fullPath);
     }
-    if (file.endsWith('.md')) {
-      return fullPath;
+    if (file.endsWith('.mdx')) {
+      return [fullPath];
     }
     return [];
   });
 }
 
 function generateSlug(filePath) {
-  const slug = path
+  return path
     .relative(postsDir, filePath)
-    .replace(/\\/g, '/')         
-    .replace(/ /g, '-')          
-    .replace(/[^a-zA-Z0-9-_./]/g, '') 
-    .replace(/\.md$/, '');
-  return slug;
+    .replace(/\\/g, '/')                  
+    .replace(/ /g, '-')                   
+    .replace(/[^a-zA-Z0-9-_./]/g, '')     
+    .replace(/\.mdx$/, '');             
 }
 
 export function getPostSlugs() {
-  const markdownFiles = getMarkdownFiles(postsDir);
-  return markdownFiles.map(generateSlug);
+  const mdxFiles = getMdxFiles(postsDir);
+  return mdxFiles.map(generateSlug);
 }
 
 function getFullPathFromSlug(slug) {
-  return path.join(postsDir, `${slug.replace(/\//g, path.sep)}.md`);
-}
-
-export function getPostBySlug(slug) {
-  const fullPath = getFullPathFromSlug(slug);
-
-  try {
-    if (!fs.existsSync(fullPath)) {
-      console.warn(`⚠️ Markdown file not found: ${fullPath}`);
-      return null;
-    }
-
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
-    const htmlContent = remark().use(html).processSync(content).toString();
-
-    return {
-      slug,
-      frontMatter: data,
-      contentHtml: htmlContent,
-    };
-  } catch (error) {
-    console.error(`Error processing file ${fullPath}:`, error);
-    return null;
-  }
-}
-
-export function getAllPosts() {
-  const slugs = getPostSlugs();
-  return slugs
-    .map(getPostBySlug)
-    .filter((post) => post !== null);
+  return path.join(postsDir, `${slug.replace(/\//g, path.sep)}.mdx`);
 }
 
 export async function getPostData(slug) {
   const fullPath = getFullPathFromSlug(slug);
 
-  try {
-    if (!fs.existsSync(fullPath)) {
-      console.warn(`⚠️ Markdown file not found: ${fullPath}`);
-      return {
-        title: 'Not Found',
-        date: '',
-        contentHtml: '<p>This post could not be found.</p>',
-      };
-    }
-
-    const fileContents = fs.readFileSync(fullPath, 'utf8');
-    const { data, content } = matter(fileContents);
-
-    const modifiedContent = content.replace(/(\*\*.*?\*\*)(\S)/g, '$1&#8203;$2');
-
-    const processedContent = await remark()
-      .use(remarkGfm)
-      .use(remarkMath)
-      .use(remarkRehype, { allowDangerousHtml: true })
-      .use(rehypeRaw)
-      .use(rehypeMathjax)
-      .use(rehypeStringify)
-      .process(modifiedContent);
-
+  if (!fs.existsSync(fullPath)) {
     return {
-      slug,
-      ...data,
-      contentHtml: processedContent.toString(),
-    };
-  } catch (error) {
-    console.error(`Error processing markdown for slug ${slug}:`, error);
-    return {
-      title: 'Error',
+      title: 'Not Found',
       date: '',
-      contentHtml: `<p>Error processing the post: ${error.message}</p>`,
+      code: null,
     };
   }
+
+  const fileContents = fs.readFileSync(fullPath, 'utf8');
+  const { data, content } = matter(fileContents);
+
+  if (process.platform === 'win32') {
+    process.env.ESBUILD_BINARY_PATH = path.join(
+      process.cwd(),
+      'node_modules',
+      'esbuild',
+      'esbuild.exe'
+    );
+  }
+
+  const result = await bundleMDX({
+    source: content,
+    cwd: postsDir,
+    mdxOptions(options) {
+      options.remarkPlugins = [...(options.remarkPlugins ?? []), remarkMath];
+      options.rehypePlugins = [...(options.rehypePlugins ?? []), rehypeKatex, rehypeHighlight];
+      return options;
+    },
+  });
+
+  return {
+    ...data,
+    slug,
+    code: result.code,
+  };
+}
+
+export async function getAllPosts() {
+  const slugs = getPostSlugs();
+  const posts = await Promise.all(slugs.map(getPostData));
+  return posts.filter((post) => post.code !== null);
 }

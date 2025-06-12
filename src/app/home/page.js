@@ -7,8 +7,8 @@ import styles from "./Home.module.css";
 
 export const dynamic = "auto";
 
-export default function HomePage() {
-  const posts = getAllPosts();
+export default async function HomePage() {
+  const posts = await getAllPosts(); 
   const categorizedPosts = categorizePosts(posts);
 
   return (

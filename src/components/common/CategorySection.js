@@ -14,10 +14,10 @@ export default function CategorySection({ category, posts }) {
         {posts.map((post, index) => (
           <PostCard
             key={post.slug || `${category}-${index}`}
-            image={post.frontMatter.image}
-            title={post.frontMatter.title}
-            summary={post.frontMatter.summary}
-            date={post.frontMatter.date}
+            image={post.image}
+            title={post.title}
+            summary={post.summary}
+            date={post.date}
             slug={post.slug}
           />
         ))}

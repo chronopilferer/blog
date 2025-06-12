@@ -1,4 +1,7 @@
-const path = require('path');
+const path    = require('path');
+const withMDX = require('@next/mdx')({
+  extension: /\.(md|mdx)$/,
+});
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -10,7 +13,8 @@ const nextConfig = {
     unoptimized: true,
   },
   basePath: isProd ? '/blog' : '',
-  assetPrefix: isProd ?  '/blog/': '',
+  assetPrefix: isProd ? '/blog/' : '',
+  pageExtensions: ['js', 'jsx', 'mdx'], 
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
@@ -25,4 +29,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+module.exports = withMDX(nextConfig);

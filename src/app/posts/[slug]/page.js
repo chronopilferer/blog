@@ -1,28 +1,16 @@
 import { getPostData, getPostSlugs } from '@utils/markdown';
 import PostHeader from '@components/layout/Header/Post/PostHeader';
+import PostClientContent from './PostClientContent'; 
 import styles from './PostPage.module.css';
-import PostSidebar from './PostSidebar';
 
 export async function generateStaticParams() {
-  try {
-    const slugs = getPostSlugs();
-    return slugs.map((slug) => ({ slug }));
-  } catch (e) {
-    return []; 
-  }
+  const slugs = getPostSlugs();
+  return slugs.map((slug) => ({ slug }));
 }
 
 export default async function PostPage({ params }) {
-  const { slug } = await params;  
-  const post = await getPostData(slug);  
-
-  const contentList = [];
-  const contentWithIds = post.contentHtml.replace(/<h1([^>]*)>(.*?)<\/h1>/g, (match, attrs, title) => {
-    let id = attrs.match(/id="([^"]+)"/)?.[1] || `section-${contentList.length + 1}`;
-
-    contentList.push({ id, title: title.trim() });
-    return `<h1 ${attrs.includes('id=') ? attrs : `${attrs} id="${id}"`}>${title}</h1>`;
-  });
+  const slug = (await params).slug;
+  const post = await getPostData(slug);
 
   return (
     <div className={styles.postContainer}>
@@ -30,11 +18,9 @@ export default async function PostPage({ params }) {
       <div className={styles.postContent}>
         <div className={styles.sidebarLeft}></div>
         <div className={styles.mainContent}>
-          <div dangerouslySetInnerHTML={{ __html: contentWithIds }} />
+          <PostClientContent code={post.code} />
         </div>
-        <div className={styles.sidebarRight}>
-          <PostSidebar content={contentList} />
-        </div>
+        <div className={styles.sidebarRight}></div>
       </div>
     </div>
   );

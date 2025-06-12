@@ -1,48 +1,36 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Box, List, Stack, useTheme } from '@mui/material';
 import UnderlineButton from '@components/ui/buttons/UnderlineButton';
+import slugify from 'slugify';
 
-const ContentList = ({ content, handleScrollTo }) => (
-  <List>
-    {content.length === 0 ? (
-      <Box sx={{ textAlign: 'center', fontWeight: 'bold', fontSize: '18px', color: 'white' }}>
-        No contents available
-      </Box>
-    ) : (
-      content.map(({ id, title }) => (
-        <UnderlineButton
-          key={id}
-          title={title}
-          onClick={() => handleScrollTo(id)}
-          sx={{
-            color: 'white',           
-            backgroundColor: 'transparent', 
-            padding: '8px',
-            width: '100%',
-            textAlign: 'left',
-            justifyContent: 'flex-start',
-            textTransform: 'none',    
-            wordBreak: 'break-word',  
-          }}
-        >
-          {title}
-        </UnderlineButton>
-      ))
-    )}
-  </List>
-);
-
-const PostSidebar = ({ content }) => {
+const PostSidebar = () => {
   const theme = useTheme();
+  const [contentList, setContentList] = useState([]);
+
+  useEffect(() => {
+    const nodes = Array.from(document.querySelectorAll('h1, h2'));
+    const headings = [];
+    let headingCount = 0;
+
+    nodes.forEach((el) => {
+      let id = el.id;
+      if (!id) {
+        id = slugify(el.textContent || '') + '-' + headingCount++;
+        el.id = id;
+      }
+
+      const level = el.tagName === 'H2' ? 2 : 1;
+      headings.push({ id, title: el.textContent, level });
+    });
+
+    setContentList(headings);
+  }, []);
 
   const handleScrollTo = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      console.warn(`Element with ID "${id}" not found`);
-    }
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const styles = {
@@ -68,7 +56,28 @@ const PostSidebar = ({ content }) => {
   return (
     <Stack sx={styles.container}>
       <Box sx={styles.title}>Contents</Box>
-      <ContentList content={content} handleScrollTo={handleScrollTo} />
+      <List>
+        {contentList.map(({ id, title, level }) => (
+          <UnderlineButton
+            key={id}
+            title={title}
+            onClick={() => handleScrollTo(id)}
+            sx={{
+              color: 'white',
+              backgroundColor: 'transparent',
+              padding: '8px',
+              width: '100%',
+              textAlign: 'left',
+              justifyContent: 'flex-start',
+              textTransform: 'none',
+              wordBreak: 'break-word',
+              pl: level === 2 ? 2 : 0,
+            }}
+          >
+            {title}
+          </UnderlineButton>
+        ))}
+      </List>
     </Stack>
   );
 };

@@ -1,6 +1,6 @@
 ---
 title: "DeepSeek-R1"
-date: "2023-03-15"
+date: "2025-03-15"
 category: "Paper Review"
 tags: ["AI", "DL"]     
 summary: "순수한 강화학습의 가능성"
@@ -91,34 +91,42 @@ GRPO는 사람이 일일이 점수를 매기지 않고도 여러 응답 간의 �
 
 ### GRPO 알고리즘 수식
 
-<figure style="text-align: center;">
-    <img src="images/Group-Relative-Policy-Optimization-structure.png" alt="GRPO 구조" style="width: 100%; height: auto;">
-    <figcaption>Group Relative Policy Optimization structure</figcaption>
-</figure>
+<PostFigure
+  src="/images/Group-Relative-Policy-Optimization-structure.png"
+  alt="GRPO 구조"
+  width="50%"
+  caption="그림 1. Group Relative Policy Optimization structure"
+/>
 
-| 용어 | 의미 |
-|------|------|
-| $G$ | 미니배치 크기 (총 샘플 수) |
-| $i$ | 현재 샘플의 인덱스 $1 \leq i \leq G$ |
-| $q$ | 입력 질문 (query) |
-| $o_i$ | $i$번째 응답 (output) |
-| $\pi_\theta(o_i \mid q)$ | 현재 정책 $\theta$에서 응답 $o_i$의 생성 비율 |
-| $\pi_{\theta_{\text{old}}}(o_i \mid q)$ | 이전 정책 $\theta_{\text{old}}$에서 응답 $o_i$의 생성 비율 |
-| $\pi_{\text{ref}}$ | 참조 정책 (예: 안전성 기준 모델 또는 베이스라인 모델) |
-| $A_i$ | Advantage (보상 - 기준값), 응답의 상대적 우수성을 나타내는 지표 |
-| $\epsilon$ | 클리핑 범위 제한값 (예: 0.1, 0.2) |
-| $\beta$ | KL 패널티의 중요도를 조절하는 하이퍼파라미터 |
-| $\text{clip}(r, 1 - \epsilon, 1 + \epsilon)$ | 비율 $r$을 $[1 - \epsilon, 1 + \epsilon]$으로 제한 |
-| $D_{\text{KL}}(\pi_\theta \|\| \pi_{\text{ref}})$ | 정책 간 Kullback-Leibler Divergence (분포 차이) |
+<SmartTable
+  rows={[
+    ["G", "미니배치 크기 (총 샘플 수)"],
+    ["i", <>현재 샘플의 인덱스 <MathInline math="1 \\leq i \\leq G" /></>],
+    ["q", "입력 질문 (query)"],
+    ["o_i", <> <MathInline math="i" />번째 응답 (output)</>],
+    ["\\pi_\\theta(o_i \\mid q)", <>
+      현재 정책 <MathInline math="\\theta" />에서 응답 <MathInline math="o_i" />의 생성 비율
+    </>],
+    ["\\pi_{\\theta_{\\text{old}}}(o_i \\mid q)", <>
+      이전 정책 <MathInline math="\\theta_{\\text{old}}" />에서 응답 <MathInline math="o_i" />의 생성 비율
+    </>],
+    ["\\pi_{\\text{ref}}", "참조 정책 (예: 안전성 기준 모델 또는 베이스라인 모델)"],
+    ["A_i", "Advantage (보상 - 기준값), 응답의 상대적 우수성을 나타내는 지표"],
+    ["\\epsilon", "클리핑 범위 제한값 (예: 0.1, 0.2)"],
+    ["\\beta", "KL 패널티의 중요도를 조절하는 하이퍼파라미터"],
+    ["\\text{clip}(r, 1 - \\epsilon, 1 + \\epsilon)", <>
+      비율 <MathInline math="r" />을 <MathInline math="[1 - \\epsilon, 1 + \\epsilon]" />으로 제한
+    </>],
+    ["D_{\\text{KL}}(\\pi_\\theta \\|\\| \\pi_{\\text{ref}})", "정책 간 Kullback-Leibler Divergence (분포 차이)"],
+  ]}
+/>
 
 구체적인 손실 함수는 아래와 같다:
 
-$$
-\frac{1}{G} \sum_{i=1}^{G} \left[ \min \left( 
-\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{\text{old}}}(o_i|q)} A_i, 
-\text{clip}\left(\frac{\pi_{\theta}(o_i|q)}{\pi_{\theta_{\text{old}}}(o_i|q)}, 1-\epsilon, 1+\epsilon\right)A_i 
-\right) - \beta D_{KL}(\pi_\theta || \pi_{\text{ref}}) \right]
-$$
+<MathBlock math={`\\frac{1}{G} \\sum_{i=1}^{G} \\left[ \\min \\left( 
+\\frac{\\pi_{\\theta}(o_i|q)}{\\pi_{\\theta_{\\text{old}}}(o_i|q)} A_i, 
+\\text{clip}\\left(\\frac{\\pi_{\\theta}(o_i|q)}{\\pi_{\\theta_{\\text{old}}}(o_i|q)}, 1-\\epsilon, 1+\\epsilon\\right)A_i 
+\\right) - \\beta D_{KL}(\\pi_\\theta || \\pi_{\\text{ref}}) \\right]`} />
 
 보상을 최대화하는 방향의 손실 함수를 통해 학습이 이루어지며, 전체 흐름은 다음과 같다.
 
@@ -132,7 +140,7 @@ $$
 
 5. 학습이 불안정해지는 것을 방지하기 위해, 비율 $r_i$는 클리핑(clip) 범위로 제한되며, 원래 값과 클리핑된 값 중 작은 쪽을 선택(min)한다.
 
-6. 현재 정책이 참조 정책 $\pi_{\text{ref}}$와 지나치게 멀어지지 않도록, KL 패널티 항을 통해 차이를 조절한다.
+6. 현재 정책이 참조 정책 <MathInline math="\pi_{\text{ref}}"/> 와 지나치게 멀어지지 않도록, KL 패널티 항을 통해 차이를 조절한다.
 
 7. 위 과정을 통해 얻어진 손실 함수를 최대화하는 방향으로 파라미터 $\theta$를 업데이트한다.
 
@@ -148,7 +156,7 @@ $$
 
 **형식 보상 (Format Rewards)**
 - 모델이 사고 과정과 최종 답변을 구분해서 표현하도록 유도하기 위한 보상이다.
-- 응답 안에 **<think>**와 <answer> 태그를 명시적으로 포함하게 만들고, 이 구조를 따를 때에만 보상을 부여한다.
+- 응답 안에 `**<think>**`와 `<answer>` 태그를 명시적으로 포함하게 만들고, 이 구조를 따를 때에만 보상을 부여한다.
 - 이를 통해 모델은 내부 사고와 최종 응답을 구분짓는 구조적 표현 방식을 학습하게 된다.
 
 DeepSeek-R1은 규칙 기반 보상 정책을 활용해, 복잡한 보상 모델 없이도 고품질 응답과 사고 구조를 효과적으로 학습할 수 있었다.
@@ -177,7 +185,7 @@ DeepSeek-R1은 단순히 성능 수치만 높인 모델이 아니라, **"AI가 �
 결국, DeepSeek-R1은 완벽하지 않지만, **“AI의 자기 진화 가능성”과 “고성능의 대중화”라는 두 축을 동시에 건드린 모델**이라는 점에서 기억될 것이다.  
 앞으로 더 투명하고 정제된 방식으로 후속 연구가 이어진다면, 이 모델이 제시한 방향은 **단순한 실험을 넘어서 AI 개발의 새로운 패러다임**으로 자리 잡을 가능성도 충분하다.
 
-## References
+### References
 
 - [DeepSeek R1](https://github.com/deepseek-ai/DeepSeek-R1/blob/main/DeepSeek_R1.pdf)
 - [DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models](https://arxiv.org/abs/2402.03300)

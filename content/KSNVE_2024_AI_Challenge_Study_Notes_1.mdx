@@ -47,11 +47,9 @@ image: "images/KSNVE_logo.png"
 
 ---
 
-<p align="center">
-  <a href="https://ksnve.notion.site/" target="_blank" style="font-size: 18px; font-weight: bold;">
-    👉 2024 한국소음진동공학회 AI 챌린지 공식 페이지 바로가기
-  </a>
-</p>
+<CenteredLink href="https://ksnve.notion.site/">
+  👉 2024 한국소음진동공학회 AI 챌린지 공식 페이지 바로가기
+</CenteredLink>
 
 ---
 
@@ -69,10 +67,12 @@ image: "images/KSNVE_logo.png"
 - **로터**
 - **히스테리시스 브레이크**
 
-<figure style="text-align: center;">
-    <img src="images/testbed_setup.png" alt="테스트베드 구성" style="width: 80%; height: auto;">
-    <figcaption>그림 1. KSNVE AI Challenge의 테스트베드 구성</figcaption>
-</figure>
+<PostFigure
+  src="/images/testbed_setup.png"
+  alt="테스트베드 구성"
+  width="50%"
+  caption="그림 1. KSNVE AI Challenge의 테스트베드 구성"
+/>
 
 ## 🔧 구성 요소별 역할 정리
 
@@ -130,9 +130,7 @@ image: "images/KSNVE_logo.png"
 
 그래서 토크는 다음과 같은 수식으로 정의된다:
 
-$$
-Torque = Force \times Distance
-$$
+<MathBlock math={`Torque = Force \times Distance`} />
 
 여기서 중요한 건,  
 **힘 자체보다도, 그 힘이 어느 거리에서 작용하는지가 토크의 크기를 결정**한다는 점이다.  
@@ -174,10 +172,12 @@ $$
 - **구슬 (Ball)**  
 - **케이지 (Cage)**
 
-<figure style="text-align: center;">
-    <img src="images/bearing_structure.webp" alt="베어링 구조" style="width: 60%; height: auto;">
-    <figcaption>그림 2. NSK 6205 베어링의 구성 요소</figcaption>
-</figure>
+<PostFigure
+  src="/images/bearing_structure.webp"
+  alt="베어링 구조"
+  width="50%"
+  caption="그림 2. NSK 6205 베어링의 구성 요소"
+/>
 
 한국소음진동공학회에서는 이 베어링에 **다이아몬드 팁을 이용해 인위적인 결함을 삽입**하여,  
 다음과 같은 4가지 상태를 시뮬레이션했다:
@@ -187,10 +187,12 @@ $$
 - 외륜 결함 (*Outer Fault* )  
 - 구슬 결함 (*Ball Fault* )
 
-<figure style="text-align: center;">
-    <img src="images/bearing_fault_types.png" alt="베어링 결함 유형" style="width: 50%; height: auto;">
-    <figcaption>그림 3. 인위적으로 가공된 베어링 결함 유형</figcaption>
-</figure>
+<PostFigure
+  src="/images/bearing_fault_types.png"
+  alt="베어링 결함 유형"
+  width="50%"
+  caption="그림 3. 인위적으로 가공된 베어링 결함 유형"
+/>
 
 ---
 
