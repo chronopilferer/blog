@@ -5,6 +5,9 @@ import { Card, CardMedia, CardContent, Typography } from '@mui/material';
 import styles from './PostCard.module.css';
 
 export default function PostCard({ image = '/default-image.jpg', title, summary, date, slug }) {
+  const basePath = process.env.NODE_ENV === 'production' ? '/blog' : '';
+  const imageSrc = image.startsWith('/') ? `${basePath}${image}` : `${basePath}/${image}`;
+
   return (
     <Link href={`/posts/${slug}`} className={styles.card}>
       <Card
@@ -17,7 +20,7 @@ export default function PostCard({ image = '/default-image.jpg', title, summary,
       >
         <CardMedia
           component="img"
-          image={image.startsWith('/') ? image : `/${image}`}  
+          image={imageSrc}
           alt={title}
           sx={{
             height: 240,

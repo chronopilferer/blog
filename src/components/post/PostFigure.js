@@ -1,9 +1,10 @@
 
 export default function PostFigure({ src, alt, caption, width = '100%', height = 'auto' }) {
+  const basePath = process.env.NODE_ENV === 'production' ? '/blog' : '';
   return (
     <figure style={{ textAlign: 'center', margin: '2rem 0' }}>
       <img
-        src={src}
+        src={`${basePath}${src}`}
         alt={alt}
         style={{
           width,
